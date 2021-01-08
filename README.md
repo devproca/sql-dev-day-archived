@@ -103,14 +103,27 @@ Right Join does the opposite of Left Join and will return null on the 'left' (fi
 Query Users and there email addresses using a left and inner join
 use the 'users' table as the left table and 'emails' as the right
 
+
+Answer
+```
+SELECT u.firstname, u.lastname,e.email
+FROM users u
+LEFT JOIN emails e on u.id = e.user_id
+```
+
 ### Exercise 2-b
 Query Users and there email addresses using a left and inner join
 use the 'emails' table as the left table and 'users' as the right
 
+Answer
+```
+SELECT u.firstname, u.lastname,e.email
+FROM emails e
+LEFT JOIN users u on u.id = e.user_id
+```
+
 
 ## Analytic functions (window functions)
-
-
 
 Syntax
 
@@ -129,8 +142,20 @@ SUM()
 
 
 ### Exercise 3-a
+
+Get the number of unquie products ordered from the order table
+
+Answer
+```
+SELECT count(distinct product_id)
+From  orders o
+```
+
+
+### Exercise 3-b
 Create a query to get the total price of all the products
 
+Answer
 ```
 SELECT SUM(p.price) as total_price
 From  products p;
@@ -167,6 +192,7 @@ order by num_orders desc;
 ### Exercise 4-b
 create a query that shows the total purchase order of ever user
 
+Answer
 ```
 SELECT u.firstname, SUM(p.price) as total_purchase 
 From users u, products p 
@@ -175,6 +201,17 @@ where u.id = o.user_id
 group by u.firstname;
 ```
 
+### Exercise 4-c
+Get the number of unquie orders from the order table
+
+Answer
+```
+SELECT u.firstname, p.name, count(o.id)
+FROM orders o 
+JOIN users u ON o.user_id = u.id 
+JOIN products p ON o.product_id = p.id 
+GROUP BY u.firstName, p.name;
+```
 
 
 
